@@ -30,13 +30,13 @@ try {
             $object = $data['data']['object'];
             $invoiceId = $object['metadata']['invoice_id'];
             $invoiceId = checkCbInvoiceID($invoiceId, $gatewayParams['name']);
-            checkCbTransID($data['id']);
+            checkCbTransID($object['latest_successful_payment_intent_id']);
             echo "Pass the checkCbTransID check\n";
             logTransaction($gatewayParams['name'], $data, 'Callback successful');
             
             addInvoicePayment(
                 $invoiceId,
-                $data['id'],
+                $data['latest_successful_payment_intent_id'],
                 $object['amount'],
                 0,
                 $gatewayModuleName
